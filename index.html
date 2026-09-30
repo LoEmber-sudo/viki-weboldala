@@ -85,29 +85,32 @@
 
   /* ---------- HERO ---------- */
   .hero{
-    position:relative;height:88vh;min-height:520px;
+    position:relative;min-height:520px;
     display:flex;align-items:flex-end;
     background:linear-gradient(180deg, rgba(20,15,10,0.15) 0%, rgba(20,15,10,0.55) 100%),
       repeating-linear-gradient(135deg, #7d6a52, #7d6a52 12px, #7c8c68 12px, #7c8c68 24px);
     background-size:cover;background-position:center;
+    height:auto;aspect-ratio:16/9;
   }
   .hero-inner{padding:160px 32px 72px;max-width:1180px;margin:0 auto;width:100%; z-index: 1;align-self: center;}
   .hero h1{
-    color:var(--white);font-size:56px;font-weight:bold;max-width:800px;
+    color:#fff;font-size:70px;font-weight:bold;max-width:1000px;
     text-shadow:0 2px 20px rgba(0,0,0,0.25);
   }
   .hero .placeholder-tag{
     position:absolute;top:24px;left:24px;background:rgba(0,0,0,0.35);color:#fff;
     font-size:12px;padding:6px 12px;border-radius:20px;letter-spacing:.3px;
   }
+  .hero{background:none;}
+  .hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;object-position: center 30%;}
+  .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(20,15,10,0.10) 0%, rgba(20,15,10,0.55) 100%);z-index:1;}
   @media(max-width:768px){ .hero h1{font-size:36px;} .hero{height:78vh;} }
 
   /* ---------- INTRO / BEHIND THE LENS ---------- */
   .intro{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
   .intro-img{
     aspect-ratio:4/5;border-radius:4px;overflow:hidden;
-    background:repeating-linear-gradient(45deg,#d9cdb8,#d9cdb8 10px,#e6dcc9 10px,#e6dcc9 20px);
-    display:flex;align-items:center;justify-content:center;color:var(--brown-soft);font-size:14px;text-align:center;padding:20px;
+    display:flex;align-items:center;justify-content:center;color:var(--brown-soft);font-size:14px;text-align:center;padding:0px;
   }
   .intro h2{font-size:44px;margin-bottom:18px;}
   .intro p{color:var(--brown-soft);font-size:17px;margin-bottom:10px;max-width:440px;}
@@ -136,8 +139,7 @@
   .service-card{display:flex;flex-direction:column;}
   .service-img{
     aspect-ratio:4/3;border-radius:4px;overflow:hidden;margin-bottom:18px;
-    background:repeating-linear-gradient(45deg,#d9cdb8,#d9cdb8 10px,#e6dcc9 10px,#e6dcc9 20px);
-    display:flex;align-items:center;justify-content:center;color:var(--brown-soft);font-size:13px;text-align:center;padding:16px;
+    display:flex;align-items:center;justify-content:center;color:var(--brown-soft);font-size:13px;text-align:center;padding:0px;
   }
   .service-card h3{font-size:24px;margin-bottom:4px;}
   .service-card .price{color:var(--brown-soft);font-size:14px;margin-bottom:10px;}
@@ -180,8 +182,7 @@
   .booking p.lead{color:var(--brown-soft);font-size:16px;margin-bottom:28px;max-width:400px;}
   .booking-img{
     aspect-ratio:4/3;border-radius:4px;overflow:hidden;
-    background:repeating-linear-gradient(45deg,#d9cdb8,#d9cdb8 10px,#e6dcc9 10px,#e6dcc9 20px);
-    display:flex;align-items:center;justify-content:center;color:var(--brown-soft);font-size:14px;text-align:center;padding:20px;
+    display:flex;align-items:center;justify-content:center;color:var(--brown-soft);font-size:14px;text-align:center;padding:0px;
   }
   .booking-card{background:var(--beige-light);border:1px solid var(--line);border-radius:6px;padding:8px;}
   .booking-row{
@@ -310,9 +311,7 @@
   .page.active{display:block;}
 
   .img-fill{width:100%;height:100%;object-fit:cover;display:block;}
-  .hero{background:none;}
-  .hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;;}
-  .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(20,15,10,0.10) 0%, rgba(20,15,10,0.55) 100%);z-index:1;}
+
 </style>
 </head>
 <body>
@@ -452,18 +451,18 @@
   </section>
 
 
-<section class="follow">
-  <div class="container">
-    <h2>Follow for Visual Updates</h2>
-    <div class="follow-carousel">
-      <button class="carousel-btn carousel-prev" id="followPrev" aria-label="Previous image">‹</button>
-      <img id="follow-carousel-image" src="" alt="">
-      <button class="carousel-btn carousel-next" id="followNext" aria-label="Next image">›</button>
+  <section class="follow">
+    <div class="container">
+      <h2>Follow for Visual Updates</h2>
+      <div class="follow-carousel">
+        <button class="carousel-btn carousel-prev" id="followPrev" aria-label="Previous image">‹</button>
+        <img id="follow-carousel-image" src="" alt="">
+        <button class="carousel-btn carousel-next" id="followNext" aria-label="Next image">›</button>
+      </div>
+      <a href="https://instagram.com/vinx.hu" target="_blank" class="pill-btn">Follow</a>
     </div>
-    <a href="https://instagram.com/vinx.hu" target="_blank" class="pill-btn">Follow</a>
-  </div>
-</section>
-
+  </section>
+</div>
 <!-- ============ ABOUT PAGE ============ -->
 <div class="page" id="page-about">
   <section>
@@ -564,7 +563,6 @@
     </div>
   </section>
 </div>
-
 <!-- Fullscreen photo viewer -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
   <button class="lb-btn lb-close" id="lbClose" aria-label="Close">×</button>
