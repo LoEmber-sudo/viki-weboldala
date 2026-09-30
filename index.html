@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>vinx.hu — Automotive & Event Photography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beige:#EAE3D6;
+    --beige-light:#F3EEE3;
+    --brown:#3E2E22;
+    --brown-soft:#6B5847;
+    --near-black:#241A12;
+    --line:#D8CFBD;
+    --white:#FBF9F4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--beige);
+    color:var(--brown);
+    font-family:'Jost',sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:500;
+    color:var(--brown);
+    line-height:1.1;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;cursor:pointer;border:none;}
+
+  .container{max-width:1180px;margin:0 auto;padding:0 32px;}
+  section{padding:96px 0;}
+  @media(max-width:768px){ section{padding:64px 0;} .container{padding:0 24px;} }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:rgba(234,227,214,0.94);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    max-width:1180px;margin:0 auto;padding:20px 32px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:0.5px;}
+  .nav-center{display:flex;gap:40px;}
+  .nav-center a{font-size:15px;position:relative;transition:opacity .2s;}
+  .nav-center a:hover{opacity:0.65;}
+  .nav-right{display:flex;align-items:center;gap:22px;}
+  .cart{font-size:14px;color:var(--brown-soft);}
+  .book-btn{
+    background:var(--near-black);color:var(--white);
+    padding:11px 24px;border-radius:999px;font-size:14px;
+    transition:background .2s;
+  }
+  .book-btn:hover{background:var(--brown-soft);}
+  .hamburger{display:none;flex-direction:column;gap:5px;background:none;padding:6px;}
+  .hamburger span{width:24px;height:1.5px;background:var(--brown);display:block;transition:.25s;}
+  .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;}
+  .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+  .mobile-menu{
+    display:none;position:fixed;inset:0;top:69px;background:var(--beige-light);
+    z-index:99;padding:48px 32px;flex-direction:column;align-items:center;gap:34px;
+  }
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:28px;}
+  .mobile-menu .book-btn{margin-top:16px;font-family:'Jost',sans-serif;}
+
+  @media(max-width:860px){
+    .nav-center{display:none;}
+    .nav-right .book-btn{display:none;}
+    .hamburger{display:flex;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;height:88vh;min-height:520px;
+    display:flex;align-items:flex-end;
+    background:linear-gradient(180deg, rgba(20,15,10,0.15) 0%, rgba(20,15,10,0.55) 100%),
+      repeating-linear-gradient(135deg, #7d6a52, #7d6a52 12px, #7c8c68 12px, #7c8c68 24px);
+    background-size:cover;background-position:center;
+  }
+  .hero-inner{padding:0 32px 72px;max-width:1180px;margin:0 auto;width:100%;}
+  .hero h1{
+    color:var(--white);font-size:56px;font-weight:500;max-width:640px;
+    text-shadow:0 2px 20px rgba(0,0,0,0.25);
+  }
+  .hero .placeholder-tag{
+    position:absolute;top:24px;left:24px;background:rgba(0,0,0,0.35);color:#fff;
+    font-size:12px;padding:6px 12px;border-radius:20px;letter-spacing:.3px;
+  }
+  @media(max-width:768px){ .hero h1{font-size:36px;} .hero{height:78vh;} }
+
+  /* ---------- INTRO / BEHIND THE LENS ---------- */
+  .intro{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+  .intro-img{
+    aspect-ratio:4/5;border-radius:4px;overflow:hidden;
+    background:repeating-linear-gradient(45deg,#d9cdb8,#d9cdb8 10px,#e6dcc9 10px,#e6dcc9 20px);
+    display:flex;align-items:center;justify-content:center;color:var(--brown-soft);font-size:14px;text-align:center;padding:20px;
+  }
+  .intro h2{font-size:44px;margin-bottom:18px;}
+  .intro p{color:var(--brown-soft);font-size:17px;margin-bottom:10px;max-width:440px;}
+  .pill-btn{
+    display:inline-block;margin-top:20px;background:var(--near-black);color:var(--white);
+    padding:13px 30px;border-radius:999px;font-size:14px;transition:background .2s;
+  }
+  .pill-btn:hover{background:var(--brown-soft);}
+  @media(max-width:860px){ .intro{grid-template-columns:1fr;gap:32px;} .intro h2{font-size:34px;} }
+
+  /* ---------- ABOUT PAGE ---------- */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:flex-start;}
+  .about-grid h1{font-size:46px;margin-bottom:24px;}
+  .about-grid p{color:var(--brown-soft);font-size:16px;margin-bottom:16px;}
+  .about-img{
+    aspect-ratio:3/4;border-radius:4px;overflow:hidden;
+    background:repeating-linear-gradient(45deg,#d9cdb8,#d9cdb8 10px,#e6dcc9 10px,#e6dcc9 20px);
+    display:flex;align-items:center;justify-content:center;color:var(--brown-soft);font-size:14px;text-align:center;padding:20px;
+  }
+  @media(max-width:860px){ .about-grid{grid-template-columns:1fr;gap:32px;} }
+
+  /* ---------- SERVICES (teaser + full) ---------- */
+  .section-head{margin-bottom:48px;}
+  .section-head h2{font-size:42px;}
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+  .service-card{display:flex;flex-direction:column;}
+  .service-img{
+    aspect-ratio:4/3;border-radius:4px;overflow:hidden;margin-bottom:18px;
+    background:repeating-linear-gradient(45deg,#d9cdb8,#d9cdb8 10px,#e6dcc9 10px,#e6dcc9 20px);
+    display:flex;align-items:center;justify-content:center;color:var(--brown-soft);font-size:13px;text-align:center;padding:16px;
+  }
+  .service-card h3{font-size:24px;margin-bottom:4px;}
+  .service-card .price{color:var(--brown-soft);font-size:14px;margin-bottom:10px;}
+  .service-card p{color:var(--brown-soft);font-size:14.5px;flex-grow:1;margin-bottom:6px;}
+  .service-card .consult{font-style:italic;font-size:13.5px;color:var(--brown-soft);margin-bottom:16px;}
+  .card-btn{
+    background:var(--near-black);color:var(--white);padding:12px 0;border-radius:999px;
+    text-align:center;font-size:14px;transition:background .2s;
+  }
+  .card-btn:hover{background:var(--brown-soft);}
+  @media(max-width:860px){ .services-grid{grid-template-columns:1fr;} .section-head h2{font-size:32px;} }
+
+  .services-full-row{
+    display:grid;grid-template-columns:280px 1fr;gap:40px;align-items:center;
+    padding:36px 0;border-bottom:1px solid var(--line);
+  }
+  .services-full-row:last-child{border-bottom:none;}
+  .services-full-row .service-img{margin-bottom:0;aspect-ratio:4/3;}
+  .services-full-row h3{font-size:26px;margin-bottom:8px;}
+  .services-full-row p{color:var(--brown-soft);font-size:15px;margin-bottom:6px;}
+  .coming-soon-tag{
+    display:inline-block;background:var(--near-black);color:var(--white);font-size:11px;
+    padding:4px 10px;border-radius:20px;margin-bottom:8px;letter-spacing:.3px;
+  }
+  @media(max-width:700px){ .services-full-row{grid-template-columns:1fr;gap:16px;} }
+
+  /* ---------- SHOP ---------- */
+  .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+  .product-card .service-img{aspect-ratio:1/1;margin-bottom:16px;}
+  .product-card h3{font-size:20px;margin-bottom:2px;}
+  .product-card .price{color:var(--brown-soft);font-size:14px;margin-bottom:14px;}
+  .shop-note{margin-top:40px;text-align:center;color:var(--brown-soft);font-size:14.5px;}
+  .shop-note a{text-decoration:underline;}
+  @media(max-width:860px){ .shop-grid{grid-template-columns:1fr 1fr;} }
+  @media(max-width:560px){ .shop-grid{grid-template-columns:1fr;} }
+
+  /* ---------- BOOKING ---------- */
+  .booking{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+  .booking h2{font-size:42px;margin-bottom:14px;}
+  .booking p.lead{color:var(--brown-soft);font-size:16px;margin-bottom:28px;max-width:400px;}
+  .booking-img{
+    aspect-ratio:4/3;border-radius:4px;overflow:hidden;
+    background:repeating-linear-gradient(45deg,#d9cdb8,#d9cdb8 10px,#e6dcc9 10px,#e6dcc9 20px);
+    display:flex;align-items:center;justify-content:center;color:var(--brown-soft);font-size:14px;text-align:center;padding:20px;
+  }
+  .booking-card{background:var(--beige-light);border:1px solid var(--line);border-radius:6px;padding:8px;}
+  .booking-row{
+    display:flex;justify-content:space-between;align-items:center;padding:18px 20px;
+    border-bottom:1px solid var(--line);
+  }
+  .booking-row:last-child{border-bottom:none;}
+  .booking-row .name{font-size:16px;font-weight:500;}
+  .booking-row .sub{font-size:13px;color:var(--brown-soft);}
+  .book-mini{background:var(--near-black);color:var(--white);font-size:13px;padding:8px 18px;border-radius:999px;}
+  @media(max-width:860px){ .booking{grid-template-columns:1fr;gap:32px;} .booking h2{font-size:32px;} }
+
+  /* ---------- FOLLOW ---------- */
+  .follow{text-align:center;}
+  .follow h2{font-size:38px;margin-bottom:40px;}
+  .follow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:36px;}
+  .follow-img{
+    aspect-ratio:1/1;border-radius:4px;overflow:hidden;
+    background:repeating-linear-gradient(45deg,#d9cdb8,#d9cdb8 10px,#e6dcc9 10px,#e6dcc9 20px);
+    display:flex;align-items:center;justify-content:center;color:var(--brown-soft);font-size:12px;text-align:center;padding:8px;
+  }
+  @media(max-width:700px){ .follow-grid{grid-template-columns:repeat(2,1fr);} .follow h2{font-size:28px;} }
+
+  /* ---------- CONTACT FOOTER ---------- */
+  footer{
+    background:var(--near-black);color:var(--white);padding:56px 0;
+  }
+  .contact-inner{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;
+  }
+  footer h2{color:var(--white);font-size:36px;}
+  .contact-details{text-align:right;font-size:15px;line-height:1.9;color:#E8E1D5;}
+  .contact-details a:hover{opacity:0.8;}
+  @media(max-width:700px){ .contact-inner{flex-direction:column;text-align:left;} .contact-details{text-align:left;} }
+
+
+  /* ---------- GALLERY ---------- */
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+  .album-card{display:block;cursor:pointer;background:none;text-align:left;padding:0;color:inherit;}
+  .album-cover{
+    position:relative;aspect-ratio:4/5;border-radius:4px;overflow:hidden;
+    background:repeating-linear-gradient(45deg,#d9cdb8,#d9cdb8 10px,#e6dcc9 10px,#e6dcc9 20px);
+  }
+  .album-cover img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+  .album-card:hover .album-cover img{transform:scale(1.04);}
+  .album-cover::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(20,15,10,0) 45%,rgba(20,15,10,0.6) 100%);
+  }
+  .album-label{position:absolute;left:22px;right:22px;bottom:20px;z-index:2;color:var(--white);}
+  .album-label h3{color:var(--white);font-size:28px;}
+  .album-label span{font-size:13px;opacity:.85;letter-spacing:.3px;}
+  @media(max-width:860px){ .gallery-grid{grid-template-columns:1fr 1fr;gap:20px;} }
+  @media(max-width:560px){ .gallery-grid{grid-template-columns:1fr;} }
+
+  .back-link{
+    background:none;color:var(--brown-soft);font-size:14px;margin-bottom:20px;padding:0;
+    transition:color .2s;
+  }
+  .back-link:hover{color:var(--brown);}
+  .album-photos{columns:3;column-gap:16px;}
+  .album-photo{
+    display:block;width:100%;margin-bottom:16px;padding:0;break-inside:avoid;
+    border-radius:4px;overflow:hidden;background:#d9cdb8;cursor:zoom-in;
+  }
+  .album-photo img{width:100%;height:auto;transition:transform .6s ease;}
+  .album-photo:hover img{transform:scale(1.03);}
+  @media(max-width:860px){ .album-photos{columns:2;} }
+  @media(max-width:480px){ .album-photos{columns:1;} }
+  .album-empty{color:var(--brown-soft);font-size:15px;}
+
+  /* lightbox */
+  .lightbox{
+    position:fixed;inset:0;z-index:1000;background:rgba(20,15,10,0.96);
+    display:none;align-items:center;justify-content:center;
+    opacity:0;transition:opacity .25s ease;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox.show{opacity:1;}
+  .lightbox img{max-width:92vw;max-height:88vh;object-fit:contain;user-select:none;}
+  .lb-btn{
+    position:absolute;background:none;color:var(--white);font-size:34px;line-height:1;
+    padding:14px 18px;opacity:.75;transition:opacity .2s;
+  }
+  .lb-btn:hover{opacity:1;}
+  .lb-close{top:10px;right:10px;font-size:40px;}
+  .lb-prev{left:6px;top:50%;transform:translateY(-50%);}
+  .lb-next{right:6px;top:50%;transform:translateY(-50%);}
+  .lb-count{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#E8E1D5;font-size:13px;letter-spacing:.5px;}
+  body.lb-open{overflow:hidden;}
+
+  /* ---------- PAGE ROUTING ---------- */
+  .page{display:none;}
+  .page.active{display:block;}
+
+  .img-fill{width:100%;height:100%;object-fit:cover;display:block;}
+  .hero{background:none;}
+  .hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;}
+  .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(20,15,10,0.10) 0%, rgba(20,15,10,0.55) 100%);z-index:-1;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#home" class="logo">vinx.hu</a>
+    <div class="nav-center">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+      <a href="#shop">Shop</a>
+    </div>
+    <div class="nav-right">
+      <span class="cart">Cart (0)</span>
+      <a href="#contact" class="book-btn">Book now</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" class="menu-link">About</a>
+    <a href="#services" class="menu-link">Services</a>
+    <a href="#gallery" class="menu-link">Gallery</a>
+    <a href="#contact" class="menu-link">Contact</a>
+    <a href="#shop" class="menu-link">Shop</a>
+    <a href="#contact" class="book-btn menu-link">Book now</a>
+  </div>
+</header>
+
+<!-- ============ HOME PAGE ============ -->
+<div class="page active" id="page-home">
+
+  <div class="hero">
+    <img src="images/hero-bmw.jpg" alt="Red BMW M2 by the water" class="hero-photo">
+    <div class="hero-overlay"></div>
+    <div class="hero-inner">
+      <h1>Driven by Detail. Defined by Vision.</h1>
+    </div>
+  </div>
+
+  <section>
+    <div class="container intro">
+      <div class="intro-img"><img src="images/portrait.JPG" alt="Vinx portrait" class="img-fill"></div>
+      <div>
+        <h2>Behind the Lens</h2>
+        <p>Every frame has a story. This is mine.</p>
+        <p>Whether it's the elegance of a machine or the emotion of a fleeting moment, I strive to create images that leave a lasting impression.</p>
+        <a href="#about" class="pill-btn">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head"><h2>Photography Services</h2></div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-img"><img src="images/private-shoot.jpg" alt="Private shoot" class="img-fill"></div>
+          <h3>Private Shoot</h3>
+          <div class="price">$0.00</div>
+          <p>A personalized photography experience tailored to capture the unique character, details, and atmosphere of your subject.</p>
+          <div class="consult">Pricing available upon consultation.</div>
+          <a href="#contact" class="card-btn">Add to cart</a>
+        </div>
+        <div class="service-card">
+          <div class="service-img"><img src="images/event.jpg" alt="Event photography" class="img-fill"></div>
+          <h3>Event Photography</h3>
+          <div class="price">$0.00</div>
+          <p>Every event has its own story. I focus on capturing the emotions, details, and fleeting moments that make it unforgettable — turning them into images you can return to for years to come.</p>
+          <div class="consult">Pricing available after consultation.</div>
+          <a href="#contact" class="card-btn">Add to cart</a>
+        </div>
+        <div class="service-card">
+          <div class="service-img"><img src="images/wedding.jpg" alt="Wedding photography" class="img-fill"></div>
+          <h3>Wedding Photography</h3>
+          <div class="price">$0.00</div>
+          <p>A wedding is more than a single day — it's a collection of emotions, details, and unforgettable moments. I capture the genuine atmosphere, love, and stories behind every celebration, creating timeless images to be cherished for years to come.</p>
+          <div class="consult">Pricing available after consultation.</div>
+          <a href="#contact" class="card-btn">Add to cart</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head"><h2>Shop</h2></div>
+      <div class="shop-grid">
+        <div class="product-card">
+          <div class="service-img"><img src="images/shop-porsche.jpg" alt="Print 1" class="img-fill"></div>
+          <h3>Print 1</h3>
+          <div class="price">$0.00</div>
+          <a href="#" class="card-btn">Add to cart</a>
+        </div>
+        <div class="product-card">
+          <div class="service-img"><img src="images/shop-mercedes.jpg" alt="Print 2" class="img-fill"></div>
+          <h3>Print 2</h3>
+          <div class="price">$0.00</div>
+          <a href="#" class="card-btn">Add to cart</a>
+        </div>
+        <div class="product-card">
+          <div class="service-img"><img src="images/shop-lexus.jpg" alt="Print 3" class="img-fill"></div>
+          <h3>Print 3</h3>
+          <div class="price">$0.00</div>
+          <a href="#" class="card-btn">Add to cart</a>
+        </div>
+      </div>
+      <p class="shop-note">Full catalogue and checkout available on my <a href="#" id="shopifyLink">Shopify store ↗</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container booking">
+      <div>
+        <h2>Reserve Your Session</h2>
+        <p class="lead">Secure a dedicated timeslot through our streamlined booking system, enabling precise planning and timely project execution.</p>
+        <div class="booking-img"><img src="images/booking-cobra.jpg" alt="Reserve your session" class="img-fill"></div>
+      </div>
+      <div class="booking-card">
+        <div class="booking-row">
+          <div><div class="name">Free Consultation</div><div class="sub">30 minutes</div></div>
+          <a href="#contact" class="book-mini">Book</a>
+        </div>
+        <div class="booking-row">
+          <div><div class="name">Basic Service</div><div class="sub">1 hour · $99.00</div></div>
+          <a href="#contact" class="book-mini">Book</a>
+        </div>
+        <div class="booking-row">
+          <div><div class="name">Advanced Service</div><div class="sub">1 hour · $199.00</div></div>
+          <a href="#contact" class="book-mini">Book</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="follow">
+    <div class="container">
+      <h2>Follow for Visual Updates</h2>
+      <div class="follow-grid">
+        <div class="follow-img"><img src="images/follow-drift.jpg" alt="Drift car" class="img-fill"></div>
+        <div class="follow-img"><img src="images/follow-wheelie.jpg" alt="Motorbike wheelie" class="img-fill"></div>
+        <div class="follow-img"><img src="images/follow-ducati.jpg" alt="Ducati" class="img-fill"></div>
+        <div class="follow-img"><img src="images/hero-bmw.jpg" alt="BMW M2" class="img-fill"></div>
+      </div>
+      <a href="https://instagram.com/vinx.hu" target="_blank" class="pill-btn">Follow</a>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============ ABOUT PAGE ============ -->
+<div class="page" id="page-about">
+  <section>
+    <div class="container about-grid">
+      <div>
+        <h1>The Vision</h1>
+        <p>Hello, I'm Vinx — a photographer based in Budapest, Hungary, with a passion for telling stories through light, emotion, and detail.</p>
+        <p>My journey began long before I ever picked up a camera. Growing up surrounded by cars, I developed an appreciation for their design, character, and the emotions they inspire. What started as a lifelong love for the automotive world naturally evolved into a passion for photography, allowing me to preserve not only extraordinary machines but meaningful moments and genuine human connections as well.</p>
+        <p>Every project is approached with creativity, precision, and a strong eye for composition. I believe the best photographs are more than beautiful images — they're moments you can feel long after they've been captured.</p>
+        <p>Whether I'm photographing an automotive masterpiece, a portrait, a wedding, or a special event, my goal remains the same: to create timeless imagery that reflects the character, atmosphere, and story behind every frame.</p>
+        <p>Photography isn't just about pressing the shutter. It's about noticing the details others might overlook and transforming them into images worth remembering.</p>
+      </div>
+      <div class="about-img"><img src="images/portrait.jpg" alt="Vinx portrait" class="img-fill"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ SERVICES PAGE ============ -->
+<div class="page" id="page-services">
+  <section>
+    <div class="container">
+      <div class="section-head"><h1 class="serif" style="font-size:44px;">Services</h1></div>
+
+      <div class="services-full-row">
+        <div class="service-img"><img src="images/event.jpg" alt="Event photography" class="img-fill"></div>
+        <div>
+          <h3>Event Photography</h3>
+          <p>Every event has its own story. I focus on capturing the emotions, details, and fleeting moments that make it unforgettable — turning them into images you can return to for years to come.</p>
+          <p class="consult">Pricing available after consultation.</p>
+        </div>
+      </div>
+
+      <div class="services-full-row">
+        <div class="service-img"><img src="images/wedding.jpg" alt="Wedding photography" class="img-fill"></div>
+        <div>
+          <h3>Wedding Photography</h3>
+          <p>A wedding is more than a single day — it's a collection of emotions, details, and unforgettable moments. I capture the genuine atmosphere, love, and stories behind every celebration, creating timeless images to be cherished for years to come.</p>
+          <p class="consult">Pricing available after consultation.</p>
+        </div>
+      </div>
+
+      <div class="services-full-row">
+        <div class="service-img">Coming soon</div>
+        <div>
+          <span class="coming-soon-tag">Coming soon</span>
+          <h3>Real Estate Photography</h3>
+          <p>Every property has a unique character waiting to be revealed. Through carefully composed imagery, thoughtful lighting, and attention to detail, I showcase spaces in a way that highlights their atmosphere, design, and true potential.</p>
+          <p class="consult">Pricing available after consultation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ SHOP PAGE ============ -->
+<div class="page" id="page-shop">
+  <section>
+    <div class="container">
+      <div class="section-head"><h1 class="serif" style="font-size:44px;">Shop</h1></div>
+      <div class="shop-grid">
+        <div class="product-card">
+          <div class="service-img"><img src="images/shop-porsche.jpg" alt="Print 1" class="img-fill"></div>
+          <h3>Print 1</h3>
+          <div class="price">$0.00</div>
+          <a href="#" class="card-btn">Add to cart</a>
+        </div>
+        <div class="product-card">
+          <div class="service-img"><img src="images/shop-mercedes.jpg" alt="Print 2" class="img-fill"></div>
+          <h3>Print 2</h3>
+          <div class="price">$0.00</div>
+          <a href="#" class="card-btn">Add to cart</a>
+        </div>
+        <div class="product-card">
+          <div class="service-img"><img src="images/shop-lexus.jpg" alt="Print 3" class="img-fill"></div>
+          <h3>Print 3</h3>
+          <div class="price">$0.00</div>
+          <a href="#" class="card-btn">Add to cart</a>
+        </div>
+      </div>
+      <p class="shop-note">Full catalogue and checkout available on my <a href="#" id="shopifyLink2">Shopify store ↗</a></p>
+    </div>
+  </section>
+</div>
+
+<!-- ============ GALLERY PAGE ============ -->
+<div class="page" id="page-gallery">
+  <section>
+    <div class="container">
+      <div id="galleryIndex">
+        <div class="section-head"><h1 class="serif" style="font-size:44px;">Gallery</h1></div>
+        <div class="gallery-grid" id="galleryGrid"></div>
+      </div>
+      <div id="galleryAlbum" hidden>
+        <button class="back-link" id="backToGallery">← All albums</button>
+        <div class="section-head"><h1 class="serif" style="font-size:44px;" id="albumTitle"></h1></div>
+        <div class="album-photos" id="albumPhotos"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Fullscreen photo viewer -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-btn lb-close" id="lbClose" aria-label="Close">×</button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="Previous photo">‹</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-btn lb-next" id="lbNext" aria-label="Next photo">›</button>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<!-- ============ CONTACT FOOTER (shown on every page) ============ -->
+<footer id="contact">
+  <div class="container contact-inner">
+    <h2>Contact Me</h2>
+    <div class="contact-details">
+      vinx.hu.contact@gmail.com<br>
+      instagram: <a href="https://instagram.com/vinx.hu" target="_blank">@vinx.hu</a><br>
+      +36 30 656 0542
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---- Mobile menu toggle ----
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.querySelectorAll('.menu-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+
+  // ---- Simple hash-based page routing ----
+  const pages = {
+    'home': document.getElementById('page-home'),
+    'about': document.getElementById('page-about'),
+    'services': document.getElementById('page-services'),
+    'shop': document.getElementById('page-shop'),
+    'gallery': document.getElementById('page-gallery')
+  };
+
+  function showPage(hash){
+    // "contact" isn't a page, it's the footer — always visible, so scroll to it
+    if(hash === 'contact'){
+      document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+      return;
+    }
+    // hashes like "gallery/velden" -> page "gallery", album "velden"
+    const [pageKey, sub] = hash.split('/');
+    const key = pages[pageKey] ? pageKey : 'home';
+    Object.values(pages).forEach(p => p.classList.remove('active'));
+    pages[key].classList.add('active');
+    if(key === 'gallery') showAlbum(sub);
+    window.scrollTo({top:0, behavior:'instant'});
+  }
+
+  window.addEventListener('hashchange', () => {
+    closeLightbox();
+    const hash = window.location.hash.replace('#','') || 'home';
+    showPage(hash);
+  });
+
+  // ================= GALLERY =================
+  // HOW TO ADD PHOTOS:
+  //  1. Put the photos in  images/gallery/<album id>/   (e.g. images/gallery/velden/)
+  //  2. Add the file names to that album's "photos" list below.
+  //  3. The cover is the first photo, or set  cover: 'file.jpg'  to pick another.
+  // To add a new album, copy one block and change id + title (and make the folder).
+  const GALLERY = [
+    { id:'rs-event',       title:'RS Event',       photos:['photo-1.jpg','photo-2.jpg','photo-3.jpg','photo-4.jpg'] },
+    { id:'velden',         title:'Velden',         photos:['photo-1.jpg','photo-2.jpg','photo-3.jpg','photo-4.jpg'] },
+    { id:'weddings',       title:'Weddings',       photos:['photo-1.jpg','photo-2.jpg','photo-3.jpg','photo-4.jpg'] },
+    { id:'private-shoots', title:'Private Shoots', photos:['photo-1.jpg','photo-2.jpg','photo-3.jpg','photo-4.jpg'] }
+  ];
+
+  const galleryIndex = document.getElementById('galleryIndex');
+  const galleryAlbum = document.getElementById('galleryAlbum');
+  const galleryGrid  = document.getElementById('galleryGrid');
+  const albumPhotos  = document.getElementById('albumPhotos');
+  const albumTitle   = document.getElementById('albumTitle');
+  const photoUrl = (album, file) => `images/gallery/${album.id}/${file}`;
+
+  // build album cards
+  GALLERY.forEach(album => {
+    const cover = photoUrl(album, album.cover || album.photos[0]);
+    const card = document.createElement('a');
+    card.className = 'album-card';
+    card.href = '#gallery/' + album.id;
+    card.innerHTML = `
+      <div class="album-cover">
+        <img src="${cover}" alt="${album.title}" onerror="this.style.display='none'">
+        <div class="album-label"><h3>${album.title}</h3><span>${album.photos.length} photos</span></div>
+      </div>`;
+    galleryGrid.appendChild(card);
+  });
+
+  let currentAlbum = null;
+  let currentIndex = 0;
+
+  function showAlbum(id){
+    const album = GALLERY.find(a => a.id === id);
+    if(!album){
+      currentAlbum = null;
+      galleryIndex.hidden = false;
+      galleryAlbum.hidden = true;
+      return;
+    }
+    currentAlbum = album;
+    albumTitle.textContent = album.title;
+    albumPhotos.innerHTML = '';
+    album.photos.forEach((file, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'album-photo';
+      btn.setAttribute('aria-label', `Open photo ${i+1} of ${album.photos.length}`);
+      btn.innerHTML = `<img src="${photoUrl(album, file)}" alt="${album.title} photo ${i+1}" loading="lazy" onerror="this.parentNode.style.display='none'">`;
+      btn.addEventListener('click', () => openLightbox(i));
+      albumPhotos.appendChild(btn);
+    });
+    galleryIndex.hidden = true;
+    galleryAlbum.hidden = false;
+  }
+
+  document.getElementById('backToGallery').addEventListener('click', () => {
+    window.location.hash = 'gallery';
+  });
+
+  // ---- Fullscreen viewer ----
+  const lightbox = document.getElementById('lightbox');
+  const lbImg    = document.getElementById('lbImg');
+  const lbCount  = document.getElementById('lbCount');
+
+  function renderLightbox(){
+    const files = currentAlbum.photos;
+    lbImg.src = photoUrl(currentAlbum, files[currentIndex]);
+    lbImg.alt = `${currentAlbum.title} photo ${currentIndex+1}`;
+    lbCount.textContent = `${currentIndex+1} / ${files.length}`;
+  }
+  function openLightbox(i){
+    currentIndex = i;
+    renderLightbox();
+    lightbox.classList.add('open');
+    requestAnimationFrame(() => lightbox.classList.add('show'));
+    document.body.classList.add('lb-open');
+  }
+  function closeLightbox(){
+    if(!lightbox.classList.contains('open')) return;
+    lightbox.classList.remove('show','open');
+    document.body.classList.remove('lb-open');
+    lbImg.src = '';
+  }
+  function stepLightbox(dir){
+    const n = currentAlbum.photos.length;
+    currentIndex = (currentIndex + dir + n) % n;
+    renderLightbox();
+  }
+  document.getElementById('lbClose').addEventListener('click', closeLightbox);
+  document.getElementById('lbPrev').addEventListener('click', e => { e.stopPropagation(); stepLightbox(-1); });
+  document.getElementById('lbNext').addEventListener('click', e => { e.stopPropagation(); stepLightbox(1); });
+  lightbox.addEventListener('click', e => { if(e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', e => {
+    if(!lightbox.classList.contains('open')) return;
+    if(e.key === 'Escape') closeLightbox();
+    if(e.key === 'ArrowLeft') stepLightbox(-1);
+    if(e.key === 'ArrowRight') stepLightbox(1);
+  });
+  // swipe on touch screens
+  let touchX = null;
+  lightbox.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, {passive:true});
+  lightbox.addEventListener('touchend', e => {
+    if(touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if(Math.abs(dx) > 50) stepLightbox(dx < 0 ? 1 : -1);
+    touchX = null;
+  });
+
+  // initial load
+  const initialHash = window.location.hash.replace('#','') || 'home';
+  showPage(initialHash);
+
+  // ---- Placeholder: set your real Shopify link here ----
+  const SHOPIFY_URL = "#"; // <-- replace # with your real Shopify store URL
+  document.getElementById('shopifyLink').href = SHOPIFY_URL;
+  document.getElementById('shopifyLink2').href = SHOPIFY_URL;
+</script>
+
+</body>
+</html>
