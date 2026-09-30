@@ -16,7 +16,7 @@
     --line:#D8CFBD;
     --white:#FBF9F4;
   }
-  *{box-sizing:border-box;margin:0;padding:0;}
+  *{box-sizing:none;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
   body{
     background:var(--beige);
@@ -196,13 +196,45 @@
 
   /* ---------- FOLLOW ---------- */
   .follow{text-align:center;}
+
   .follow h2{font-size:38px;margin-bottom:40px;}
-  .follow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:36px;}
-  .follow-img{
-    aspect-ratio:1/1;border-radius:4px;overflow:hidden;
-    background:repeating-linear-gradient(45deg,#d9cdb8,#d9cdb8 10px,#e6dcc9 10px,#e6dcc9 20px);
-    display:flex;align-items:center;justify-content:center;color:var(--brown-soft);font-size:12px;text-align:center;padding:8px;
-  }
+
+  .follow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:36px;max-width: 500px;max-height: 500px;}
+.follow-carousel{
+  width:100%;
+  position: relative;
+  max-width:600px;
+  aspect-ratio:1/1;
+  margin:0 auto 0px;
+  border-radius:100px;
+  overflow:hidden;
+  background:var(--near-black);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.carousel-btn{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(251,249,244,0.85);color:var(--near-black);
+  font-size:26px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  z-index:2;transition:background .2s, transform .2s;
+}
+.carousel-btn:hover{background:var(--white);}
+.carousel-prev{left:12px;}
+.carousel-next{right:12px;}
+.follow-carousel img{
+  width:100%;
+  height:100%;
+  object-fit:contain; 
+  background:repeating-linear-gradient(45deg,#d9cdb8,#d9cdb8 10px,#e6dcc9 10px,#e6dcc9 20px);
+}
+@media(max-width:700px){
+  .carousel-btn{width:38px;height:38px;font-size:22px;}
+  .carousel-prev{left:8px;}
+  .carousel-next{right:8px;}
+}
   @media(max-width:700px){ .follow-grid{grid-template-columns:repeat(2,1fr);} .follow h2{font-size:28px;} }
 
   /* ---------- CONTACT FOOTER ---------- */
@@ -419,20 +451,18 @@
     </div>
   </section>
 
-  <section class="follow">
-    <div class="container">
-      <h2>Follow for Visual Updates</h2>
-      <div class="follow-grid">
-        <div class="follow-img"><img src="images/modelxdrift.JPG" alt="Drift car" class="img-fill"></div>
-        <div class="follow-img"><img src="images/driftxwheelie.JPG" alt="Motorbike wheelie" class="img-fill"></div>
-        <div class="follow-img"><img src="images/yellowducati2.JPG" alt="Ducati" class="img-fill"></div>
-        <div class="follow-img"><img src="images/hero-bmw.jpg" alt="BMW M2" class="img-fill"></div>
-      </div>
-      <a href="https://instagram.com/vinx.hu" target="_blank" class="pill-btn">Follow</a>
-    </div>
-  </section>
 
-</div>
+<section class="follow">
+  <div class="container">
+    <h2>Follow for Visual Updates</h2>
+    <div class="follow-carousel">
+      <button class="carousel-btn carousel-prev" id="followPrev" aria-label="Previous image">‹</button>
+      <img id="follow-carousel-image" src="" alt="">
+      <button class="carousel-btn carousel-next" id="followNext" aria-label="Next image">›</button>
+    </div>
+    <a href="https://instagram.com/vinx.hu" target="_blank" class="pill-btn">Follow</a>
+  </div>
+</section>
 
 <!-- ============ ABOUT PAGE ============ -->
 <div class="page" id="page-about">
@@ -570,7 +600,47 @@
       mobileMenu.classList.remove('open');
     });
   });
+  // ---- Carousel ----
+  const followImages = [
+  { src: "images/modelxdrift.JPG", alt: "Drift car" },
+  { src: "images/driftxwheelie.JPG", alt: "Motorbike wheelie" },
+  { src: "images/yellowducati2.JPG", alt: "Ducati" },
+  { src: "images/hero-bmw.jpg", alt: "BMW M2" }
+  ];
+  let followIndex = 0;
 
+  const followImage = document.getElementById("follow-carousel-image");
+
+  function showFollowImage() {
+    const image = followImages[followIndex];
+
+    followImage.src = image.src;
+    followImage.alt = image.alt;
+  }
+
+  showFollowImage();
+
+function stepFollow(dir){
+  followIndex = (followIndex + dir + followImages.length) % followImages.length;
+  showFollowImage();
+}
+
+let followTimer = setInterval(() => stepFollow(1), 5000);
+
+// restart the auto-advance timer after a manual click
+function resetFollowTimer(){
+  clearInterval(followTimer);
+  followTimer = setInterval(() => stepFollow(1), 5000);
+}
+
+document.getElementById('followPrev').addEventListener('click', () => {
+  stepFollow(-1);
+  resetFollowTimer();
+});
+document.getElementById('followNext').addEventListener('click', () => {
+  stepFollow(1);
+  resetFollowTimer();
+});
   // ---- Simple hash-based page routing ----
   const pages = {
     'home': document.getElementById('page-home'),
